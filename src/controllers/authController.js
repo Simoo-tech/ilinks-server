@@ -7,7 +7,6 @@ const {
 } = require("../models/UserSchema");
 const asyncHandler = require("express-async-handler");
 const jwi = require("jsonwebtoken");
-const { v4: uuidv4 } = require("uuid");
 const nodemailer = require("nodemailer");
 
 // NODEMAILER STUFF
@@ -198,7 +197,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   const hashPassCon = await bcrypt.hash(passwordcon, 10);
   const userID = jwi.decode(req.params.id).id;
   
-  
+
   await UserSc.findByIdAndUpdate(
     userID,
     {
