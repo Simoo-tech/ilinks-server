@@ -7,9 +7,7 @@ const maxSize = 1 * 1024 * 1024; // 2 MB
 
 // mutlter storage
 const UploadStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    return cb(null, "uploads/portfolio");
-  },
+  destination: "upload/portfolio",
   filename: function (req, file, cb) {
     return cb(null, `${date}-${file.originalname}`);
   },
@@ -39,7 +37,7 @@ const UpdatePortfolioFiles = asyncHandler(async (req, res) => {
     res.status(400).send({ success: false, message: "no file choose" });
   }
 
-  const path = process.env.SERVER_URL_API + "avatar/" + file.originalname;
+  const path = process.env.SERVER_URL_API + "portfolio/" + file.filename;
   res.status(200).send({ path, success: true, message: "upload successfully" });
 });
 

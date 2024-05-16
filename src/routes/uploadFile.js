@@ -5,10 +5,9 @@ const {
   UploadAvatarFiles,
 } = require("../controllers/uploadAvatar");
 const {
-  UploadedPortfolioImgs,
   UpdatePortfolioFiles,
   UploadPortfolioFiles,
-} = require("../controllers/uploadPortfolioImgs");
+} = require("../controllers/uploadPortfolio");
 const { VerifyUser } = require("../middleware/verifyUser");
 
 // avatar upload && update image

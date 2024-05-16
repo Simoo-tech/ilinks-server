@@ -8,9 +8,7 @@ const maxSize = 1 * 1024 * 1024; // 2 MB
 
 // mutlter storage
 const UploadStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    return cb(null, "uploads/avatar");
-  },
+  destination: "upload/avatar",
   filename: function (req, file, cb) {
     return cb(null, `${date}-${file.originalname}`);
   },
@@ -40,7 +38,7 @@ const UpdateAvatarFiles = asyncHandler(async (req, res) => {
     res.status(400).send({ success: false, message: "no file choose" });
   }
 
-  const path = process.env.SERVER_URL_API + "avatar/" + file.originalname;
+  const path = process.env.SERVER_URL_API + "avatar/" + file.filename;
 
   let user = await UserSc.findByIdAndUpdate(
     req.params.id,
