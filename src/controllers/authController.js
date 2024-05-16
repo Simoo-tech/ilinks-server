@@ -110,7 +110,7 @@ const login = asyncHandler(async (req, res) => {
 
 /**
  * @desc reset password
- * @route /auth/resetpassword
+ * @route /auth/send-reset-password
  * @method POST
  * @access public
  */
@@ -125,8 +125,8 @@ const sendPassLink = asyncHandler(async (req, res) => {
   }
 
   // url
-  const newID = uuidv4();
-  const PassToken = jwi.sign({ newID }, process.env.TOKEN_PASS_KEY, {
+
+  const PassToken = jwi.sign({ id: user._id }, process.env.TOKEN_PASS_KEY, {
     expiresIn: 600000,
   });
   const encodedToken = encodeURIComponent(PassToken).replace(/\./g, "%2E");
@@ -154,8 +154,8 @@ const sendPassLink = asyncHandler(async (req, res) => {
         Please click link below to complete your new password request,
         <br/>
         <a
-        href="https://ilinks-api.onrender.com/auth/reset-password/${encodedToken}" style="font-size: 14px;">
-        https://ilinks-api.onrender.com/resetpassword/${encodedToken}
+        href="https://ilink.onrender.com/auth/reset-password/${encodedToken}" style="font-size: 14px;">
+        https://ilink.onrender.com/resetpassword/${encodedToken}
         </a>
         </h3>
         <p style='color:black; font-weight:bold'>this link will expire after 10 minute</p>
@@ -168,7 +168,7 @@ const sendPassLink = asyncHandler(async (req, res) => {
     </html>
     `,
   };
-  res.cookie("PR", encodedToken, { httpOnly: true, maxAge: 360000 });
+
   // sent email
   await transporter.sendMail(mailOptions, async (err) => {
     if (err) {
@@ -177,7 +177,6 @@ const sendPassLink = asyncHandler(async (req, res) => {
       return res.status(201).send({
         message: "email has sent",
         encodedToken,
-        userID: user._id,
         success: true,
       });
     }
