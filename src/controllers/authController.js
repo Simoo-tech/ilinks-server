@@ -185,7 +185,7 @@ const sendPassLink = asyncHandler(async (req, res) => {
 
 /**
  * @desc reset password
- * @route /auth/resetpassword/:id
+ * @route /auth/reset-password/:id
  * @method PUT
  * @access public
  */
