@@ -3,7 +3,7 @@ const multer = require("multer");
 
 // multer upload avatar
 const date = new Date().getHours();
-const maxSize = 1 * 1024 * 1024; // 2 MB
+const maxSize = 2 * 1024 * 1024; // 2 MB
 
 // mutlter storage
 const UploadStorage = multer.diskStorage({
