@@ -129,7 +129,6 @@ const sendPassLink = asyncHandler(async (req, res) => {
   const PassToken = jwi.sign({ id: user._id }, process.env.TOKEN_PASS_KEY, {
     expiresIn: 600000,
   });
-  const encodedToken = encodeURIComponent(PassToken).replace(/\./g, "%2E");
 
   // details message
   const mailOptions = {
@@ -154,8 +153,8 @@ const sendPassLink = asyncHandler(async (req, res) => {
         Please click link below to complete your new password request,
         <br/>
         <a
-        href="https://ilink.onrender.com/auth/reset-password/${encodedToken}" style="font-size: 14px;">
-        https://ilink.onrender.com/resetpassword/${encodedToken}
+        href="https://ilink.onrender.com/auth/reset-password/${PassToken}" style="font-size: 14px;">
+        https://ilink.onrender.com/resetpassword/${PassToken}
         </a>
         </h3>
         <p style='color:black; font-weight:bold'>this link will expire after 10 minute</p>
@@ -176,7 +175,7 @@ const sendPassLink = asyncHandler(async (req, res) => {
     } else {
       return res.status(201).send({
         message: "email has sent",
-        encodedToken,
+        PassToken,
         success: true,
       });
     }
@@ -197,8 +196,11 @@ const resetPassword = asyncHandler(async (req, res) => {
   }
   const hashPass = await bcrypt.hash(password, 10);
   const hashPassCon = await bcrypt.hash(passwordcon, 10);
+  const userID = jwi.decode(req.params.id).id;
+  
+  
   await UserSc.findByIdAndUpdate(
-    req.params.id,
+    userID,
     {
       $set: {
         password: hashPass,
