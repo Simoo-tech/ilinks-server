@@ -23,7 +23,7 @@ app.use(
 
 // Request headers you wish to allow
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.setHeader("Access-Control-Allow-Headers", "access_token");
   // Pass to next layer of middleware
   next();
 });
