@@ -40,7 +40,7 @@ const UpdateAvatarFiles = asyncHandler(async (req, res) => {
     res.status(400).send({ success: false, message: "no file choose" });
   }
 
-  const path = process.env.SERVER_URL_LOCALHOST + "avatar/" + file.filename;
+  const path = process.env.SERVER_URL_API + "avatar/" + file.filename;
 
   let user = await UserSc.findByIdAndUpdate(
     req.params.id,

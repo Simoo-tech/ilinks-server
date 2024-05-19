@@ -39,7 +39,7 @@ const UpdatePortfolioFiles = asyncHandler(async (req, res) => {
     res.status(400).send({ success: false, message: "no file choose" });
   }
 
-  const path = process.env.SERVER_URL_LOCALHOST + "portfolio/" + file.filename;
+  const path = process.env.SERVER_URL_API + "portfolio/" + file.filename;
   res.status(200).send({ path, success: true, message: "upload successfully" });
 });
 
