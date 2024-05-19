@@ -17,16 +17,10 @@ app.use(
     origin: ["https://ilink.onrender.com", "http://localhost:5173"],
     methods: ["POST", "PUT", "DELETE", "GET"],
     credentials: true,
-    allowedHeaders: ["access_token"],
+    allowedHeaders: ["access_token", "Content-type"],
+    exposedHeaders: ["access_token"],
   })
 );
-
-// Request headers you wish to allow
-app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Headers", "access_token");
-  // Pass to next layer of middleware
-  next();
-});
 
 // Routes
 app.get("/api", (req, res) => {
