@@ -18,9 +18,11 @@ app.use(
     methods: ["POST", "PUT", "DELETE", "GET"],
     credentials: true,
     allowedHeaders: ["access_token"],
-    
   })
 );
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers");
+});
 
 // Routes
 app.get("/api", (req, res) => {
