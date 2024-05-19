@@ -2,13 +2,13 @@ const asyncHandler = require("express-async-handler");
 const multer = require("multer");
 
 // multer upload avatar
-const date = new Date().getHours();
+const date = new Date().getHours() + new Date().getSeconds();
 const maxSize = 2 * 1024 * 1024; // 2 MB
 
 // mutlter storage
 const UploadStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "../../upload/portfolio");
+    cb(null, "upload/avatar/");
   },
   filename: function (req, file, cb) {
     return cb(null, `${date}-${file.originalname}`);
@@ -39,7 +39,7 @@ const UpdatePortfolioFiles = asyncHandler(async (req, res) => {
     res.status(400).send({ success: false, message: "no file choose" });
   }
 
-  const path = process.env.SERVER_URL_API + "portfolio/" + file.filename;
+  const path = process.env.SERVER_URL_LOCALHOST + "portfolio/" + file.filename;
   res.status(200).send({ path, success: true, message: "upload successfully" });
 });
 
