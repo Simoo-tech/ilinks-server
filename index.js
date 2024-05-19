@@ -19,9 +19,6 @@ app.use(
     credentials: true,
   })
 );
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Headers", "*");
-});
 
 // Routes
 app.get("/api", (req, res) => {
