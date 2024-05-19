@@ -61,7 +61,7 @@ const register = asyncHandler(async (req, res) => {
       expiresIn: "1h",
     }
   );
-  console.log(Access_Token);
+
   await newUser.save();
   return res.status(201).send({
     newUser,

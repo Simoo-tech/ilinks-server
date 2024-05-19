@@ -52,7 +52,6 @@ router.put(
 
     // Upload an image
     const img = await cloudinary.uploader.upload(file.path);
-    console.log(img.secure_url);
 
     let user = await UserSc.findByIdAndUpdate(
       req.params.id,
