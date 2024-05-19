@@ -21,7 +21,7 @@ app.use(
 );
 
 // Routes
-app.use("/api", (req, res) => {
+app.get("/api", (req, res) => {
   res.status(200).send("Hello, welcome to ilinks server");
 });
 app.use("/api/auth", require("./src/routes/auth"));
