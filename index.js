@@ -21,13 +21,19 @@ app.use(
 );
 
 // Routes
+app.use("/api", (req, res) => {
+  res.status(200).send("Hello, welcome to ilinks server");
+});
 app.use("/api/auth", require("./src/routes/auth"));
 app.use("/api/user", require("./src/routes/users"));
 app.use("/api/ilinkData", require("./src/routes/ilink"));
 app.use("/api/userIlink", require("./src/routes/userIlinkShow"));
 app.use("/api/upload-files", require("./src/routes/uploadFile"));
 //// verify email
-app.post("/api/send-verify-email", require("./src/controllers/sendVerifyEmail"));
+app.post(
+  "/api/send-verify-email",
+  require("./src/controllers/sendVerifyEmail")
+);
 
 app.listen(process.env.PORT, () => {
   console.log("server started", process.env.PORT);
