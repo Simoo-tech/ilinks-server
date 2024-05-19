@@ -7,7 +7,9 @@ const maxSize = 2 * 1024 * 1024; // 2 MB
 
 // mutlter storage
 const UploadStorage = multer.diskStorage({
-  destination: "upload/portfolio",
+  destination: (req, file, cb) => {
+    cb(null, "../../upload/portfolio");
+  },
   filename: function (req, file, cb) {
     return cb(null, `${date}-${file.originalname}`);
   },
