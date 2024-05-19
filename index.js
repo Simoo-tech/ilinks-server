@@ -17,7 +17,6 @@ app.use(
     origin: ["https://ilink.onrender.com", "http://localhost:5173"],
     methods: ["POST", "PUT", "DELETE", "GET"],
     credentials: true,
-    allowedHeaders: ["access_token"],
   })
 );
 app.use(function (req, res, next) {
