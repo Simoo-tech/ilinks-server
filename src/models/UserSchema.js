@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
     about: { type: String },
     jobtitle: { type: String },
     country: { type: String },
-    state: { type: String },
+    status: { type: String, enum: ["free", "part-time", "full-time"] },
     fname: { type: String, maxLenght: 30, trim: true },
     lname: { type: String, maxLenght: 30, trim: true },
     verifed: { type: Boolean, default: false },
@@ -71,7 +71,10 @@ function ValCreateUser(obj) {
       .trim()
       .required()
       .regex(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-      .message("email not valid"),
+      .messages({
+        "any.required": " is a required field",
+        "object.regex": "invalid email",
+      }),
     password: joi
       .string()
       .trim()
@@ -117,7 +120,7 @@ function ValUpdateUser(obj) {
     verifed: joi.bool().default(false),
     age: joi.date().allow(""),
     about: joi.string().allow(""),
-    state: joi.string().trim().allow(""),
+    status: joi.string().trim().valid("full-time", "free", "part-time"),
     country: joi.string().trim().allow(""),
   });
   return schema.validate(obj);

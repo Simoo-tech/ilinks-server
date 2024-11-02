@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { VerifyUser } = require("../middleware/verifyUser");
 const multer = require("multer");
+const { VerifyUser } = require("../middleware/verifyUser");
 const asyncHandler = require("express-async-handler");
 const { UserSc } = require("../models/UserSchema");
 const cloudinary = require("cloudinary").v2;
 
 // file filter
-const maxSize = 2 * 1024 * 1024; // 2 MB
+const maxSize = 3 * 1024 * 1024; // 2 MB
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -24,6 +24,7 @@ const upload = multer({
     cb(null, true);
   },
 });
+
 // cloudinary
 // Cloudinary configuration
 cloudinary.config({
@@ -62,7 +63,6 @@ router.put(
       },
       { new: true, runValidators: true }
     );
-
     res.status(200).send({
       avatar: user.avatar,
       success: true,

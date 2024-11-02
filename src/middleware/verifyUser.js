@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const VerifyUser = async (req, res, next) => {
   const token = req.headers.access_token;
   if (!token) {
-    console.log(token);
     return res
       .status(400)
       .send({ success: false, message: "no token provided" });

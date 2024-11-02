@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
  */
 const getAllUsers = asyncHandler(async (req, res) => {
   let usersjobs = await UserSc.find({ jobtitle: { $exists: true } })
-    .select("jobtitle username avatar IlinkData")
+    .select("jobtitle username avatar IlinkData status")
     .populate("IlinkData");
   res.status(200).send({ usersjobs, success: true });
 });

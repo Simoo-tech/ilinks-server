@@ -41,7 +41,7 @@ const register = asyncHandler(async (req, res) => {
   } else if (UserName) {
     return res
       .status(401)
-      .send({ message: "username already taken", success: false });
+      .send({ message: "Username already taken", success: false });
   }
   /////////
   // hash password
@@ -124,11 +124,9 @@ const sendPassLink = asyncHandler(async (req, res) => {
   }
 
   // url
-
   const PassToken = jwi.sign({ id: user._id }, process.env.TOKEN_PASS_KEY, {
     expiresIn: 600000,
   });
-
   // details message
   const mailOptions = {
     from: `Ilinks ${process.env.AUTH_EMAIL}`,
