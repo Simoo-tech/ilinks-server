@@ -101,7 +101,7 @@ const login = asyncHandler(async (req, res) => {
 
   // generate new token
   const Access_Token = jwi.sign({ id: user._id }, process.env.TOKEN_KEY_LOGIN, {
-    expiresIn: "1h",
+    expiresIn: "6h",
   });
 
   res.status(201).send({ user, success: true, Access_Token });
