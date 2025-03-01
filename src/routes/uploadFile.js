@@ -7,7 +7,7 @@ const { UserSc } = require("../models/UserSchema");
 const cloudinary = require("cloudinary").v2;
 
 // file filter
-const maxSize = 3 * 1024 * 1024; // 2 MB
+const maxSize = 21 * 1024 * 1024; // 2 MB
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -44,7 +44,6 @@ router.put(
   VerifyUser,
   upload.single("file"),
   asyncHandler(async (req, res) => {
-    const date = new Date().getHours() + new Date().getSeconds();
     const file = req.file;
 
     if (!file) {
