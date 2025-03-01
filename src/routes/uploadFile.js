@@ -7,7 +7,7 @@ const { UserSc } = require("../models/UserSchema");
 const cloudinary = require("cloudinary").v2;
 
 // file filter
-const maxSize = 21 * 1024 * 1024; // 2 MB
+const maxSize = 20000000; // 2 MB
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
   storage: storage,
-  limits: { fileSize: maxSize },
   fileFilter: (req, file, cb) => {
     const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
     if (!allowedTypes.includes(file.mimetype)) {
