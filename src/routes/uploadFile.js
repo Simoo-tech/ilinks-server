@@ -7,7 +7,6 @@ const { UserSc } = require("../models/UserSchema");
 const cloudinary = require("cloudinary").v2;
 
 // file filter
-const maxSize = 20000000; // 2 MB
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);

@@ -37,11 +37,11 @@ const register = asyncHandler(async (req, res) => {
   if (UserEmail) {
     return res
       .status(401)
-      .send({ message: "Email already registered", success: false });
+      .send({ message: "البريد الالكتروني موجود بالفعل", success: false });
   } else if (UserName) {
     return res
       .status(401)
-      .send({ message: "Username already taken", success: false });
+      .send({ message: "اسم المستخدم موجود بالفعل", success: false });
   }
   /////////
   // hash password
@@ -87,16 +87,18 @@ const login = asyncHandler(async (req, res) => {
   // check email is exist
   let user = await UserSc.findOne({ email }).populate("IlinkData");
   if (!user) {
-    return res
-      .status(401)
-      .send({ message: " Email or Password is not correct", success: false });
+    return res.status(401).send({
+      message: "خطا في البريد الالكتروني او كلمة المرور",
+      success: false,
+    });
   }
   // check password
   passwordCheck = await bcrypt.compare(password, user.password);
   if (!passwordCheck) {
-    res
-      .status(401)
-      .send({ message: "Email or Password is not correct", success: false });
+    res.status(401).send({
+      message: "خطا في البريد الالكتروني او كلمة المرور",
+      success: false,
+    });
   }
 
   // generate new token
@@ -120,7 +122,7 @@ const sendPassLink = asyncHandler(async (req, res) => {
   if (!user) {
     res
       .status(404)
-      .send({ message: "we cannot find your email", success: false });
+      .send({ message: "البريد الالكتروني غير مسجل", success: false });
   }
 
   // url
@@ -194,7 +196,6 @@ const resetPassword = asyncHandler(async (req, res) => {
   const hashPass = await bcrypt.hash(password, 10);
   const hashPassCon = await bcrypt.hash(passwordcon, 10);
   const userID = jwi.decode(req.params.id).id;
-  
 
   await UserSc.findByIdAndUpdate(
     userID,
